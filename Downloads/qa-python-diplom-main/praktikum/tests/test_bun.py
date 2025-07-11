@@ -2,12 +2,24 @@ import pytest
 from praktikum.bun import Bun
 
 
-@pytest.mark.parametrize('name, price', [
-    ("white", 555.55),
-    ("black", 200.9),
-    ("orange", 100.0)
+@pytest.mark.parametrize('name', [
+    "white",
+    "чёрный",
+    "white123",
+    "white_bun!",
+    "",
 ])
+def test_get_bun_name(name):
+    bun = Bun(name, 100.0)
+    assert bun.get_name() == name
 
-def test_get_bun_params(name, price):
-    bun = Bun(name, price)
-    assert bun.get_name() == name and bun.get_price() == price
+
+@pytest.mark.parametrize('price', [
+    0.0,
+    0.01,
+    100.0,
+    9999999.99,
+])
+def test_get_bun_price(price):
+    bun = Bun('Test_bun', price)
+    assert bun.get_price() == price
